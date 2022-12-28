@@ -1,13 +1,15 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const Login = () => {
     // const [data,setData]=useState('');
-    const {register,formState: { errors },handleSubmit}=useForm();
+    const {register,formState: { errors },handleSubmit,reset}=useForm();
     const [loginError,setLoginError]=useState('');
-    const {signIn}=useContext(AuthContext);
+    const {signIn,googleSignIn}=useContext(AuthContext);
 
     const handleLogin=data=>{
         setLoginError('')
@@ -16,6 +18,8 @@ const Login = () => {
         .then(result=>{
             const user=result.user;
             console.log(user);
+            toast('login success')
+            reset()
         })
         .catch(error=>
             {console.log(error.message)
@@ -23,7 +27,21 @@ const Login = () => {
             })
             
     }
+    const googleLogIn=()=>{
+        googleSignIn(provider)
+          .then((result) => {
+            
+            const user = result.user;
+            
+            console.log(user)
+            
+          }).catch((error) => {
+            console.log(error)
+            
+          });
 
+    }
+    const provider = new GoogleAuthProvider();
     return (
         <div>
             <div className='h-[800px] flex justify-center items-center'>
@@ -63,7 +81,7 @@ const Login = () => {
                 </form>
                 <p>New to OnlineHUB <Link className='text-secondary' to="/signup">Create new Account</Link></p>
                 <div className="divider">OR</div>
-                <button  className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button  onClick={googleLogIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
         </div>

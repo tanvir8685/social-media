@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const SignUp = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors },reset } = useForm();
     const[signUpError,setSignUpError]=useState('');
     const {createUser,updateUser}=useContext(AuthContext);
 
@@ -14,7 +15,9 @@ const SignUp = () => {
         createUser(data.email,data.password)
         .then(result=>{
             const user =result.user;
+            toast('user crated succesfully')
             console.log(user)
+            reset();
             const userInfo={
                 displayName:data.name
             }
@@ -22,7 +25,10 @@ const SignUp = () => {
             .then(()=>{})
             .catch(err=>console.log(err))
         })
-        .catch(error=>console.log(error))
+        .catch(error=>{
+            console.log(error)
+            setSignUpError(error.message)
+        })
     }
     return (
         <div className='h-[800px] flex justify-center items-center'>
