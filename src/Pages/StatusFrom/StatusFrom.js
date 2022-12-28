@@ -5,6 +5,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 
 const StatusFrom = () => {
     const {user}=useContext(AuthContext);
+    console.log(user?.email)
     const imageHostKey=process.env.REACT_APP_imgbb;
     // console.log(imageHostKey)
     const {register,formState: { errors },handleSubmit,reset}=useForm();
@@ -24,7 +25,8 @@ const StatusFrom = () => {
                 const sts={
                     status:data.text,
                     image:imgData.data.url,
-                    userName:user.displayName
+                    userName:user?.displayName,
+                    userEmail:user?.email
                 }
                 console.log(sts)
                 fetch('http://localhost:5000/allstatus',{
@@ -62,9 +64,9 @@ const StatusFrom = () => {
     }
     return (
         <div>
-            <div className='h-[800px] flex justify-center items-center'>
+            <div className=' flex justify-center items-center'>
             <div className='w-96 p-7'>
-                <h2 className='text-xl text-center'>Login</h2>
+                <h2 className='text-xl text-center'>Share your Status</h2>
                 <form onSubmit={handleSubmit(handleSts)}>
                     <div className="form-control w-full max-w-xs">
                         <label className="label"> <span className="label-text">Caption</span></label>
@@ -92,7 +94,7 @@ const StatusFrom = () => {
                             <option value="Seller">Seller</option>
                         </select>
                     </div> */}
-                    <input className='btn btn-accent w-full' value="Login" type="submit" />
+                    <input className='btn btn-accent w-full mt-5' value="Post" type="submit" />
                     
                 </form>
                
