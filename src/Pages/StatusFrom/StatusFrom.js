@@ -1,47 +1,103 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const StatusFrom = () => {
-    const handleSts=event=>{
-        event.preventDefault();
-        const form=event.target;
-        console.log(event)
-        const name = form.name.value;
-        const pic = form.pic.value;
-        const formData=new FormData();
-        formData.append('image',pic)
-        const url=`https://api.imgbb.com/1/upload?&key=718b499ebceb0f158b38ef38529aa38a`
-        fetch(url,{
+    const {user}=useContext(AuthContext);
+    const imageHostKey=process.env.REACT_APP_imgbb;
+    // console.log(imageHostKey)
+    const {register,formState: { errors },handleSubmit,reset}=useForm();
+    const handleSts=data=>{
+        // console.log(data,user.displayName)
+        const image =data.img[0];
+        const formData= new FormData();
+        formData.append('image',image);
+        const url =`https://api.imgbb.com/1/upload?key=${imageHostKey}`
+        fetch (url,{
             method:'POST',
             body:formData
         })
         .then(res=>res.json())
-        .then(data=>{
-            console.log(data)
+        .then(imgData=>{
+            if (imgData.success){
+                const sts={
+                    status:data.text,
+                    image:imgData.data.url,
+                    userName:user.displayName
+                }
+                console.log(sts)
+                fetch('http://localhost:5000/allstatus',{
+                    method:'POST',
+                    headers:{
+                        'content-type':'application/json'
+                    },
+                    body:JSON.stringify(sts)
+                }
+                )
+                .then(res=>res.json())
+                .then(result=>{
+                    toast('status created successfully')
+                    reset()
+                    console.log(result)
+                })
+            }
+            
         })
-        console.log(name,pic)
+        
+        
+
+        // formData.append('image',pic)
+        // const url=`https://api.imgbb.com/1/upload?&key=718b499ebceb0f158b38ef38529aa38a`
+        // fetch(url,{
+        //     method:'POST',
+        //     body:formData
+        // })
+        // .then(res=>res.json())
+        // .then(data=>{
+        //     console.log(data)
+        // })
+        // console.log(name,pic)
 
     }
     return (
         <div>
-           <form onSubmit={handleSts}>
-           <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Status Caption</span>
-                            </label>
-                            <input type="text" name='name' placeholder="name" className="input input-bordered" />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Status pic</span>
-                            </label>
-                            <input type="file" name='pic' placeholder="email" className="input input-bordered" required />
-                        </div>
-                        <div className="form-control mt-6">
-                            {/* <input type="submit " className="btn btn-primary" value="SignUp" /> */}
-                            <button className="btn btn-primary">Submit</button>
-
-                        </div>
-           </form>
+            <div className='h-[800px] flex justify-center items-center'>
+            <div className='w-96 p-7'>
+                <h2 className='text-xl text-center'>Login</h2>
+                <form onSubmit={handleSubmit(handleSts)}>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="label-text">Caption</span></label>
+                        <input type="text"
+                            {...register("text", {
+                                required: "Text  is required"
+                            })}
+                            className="input input-bordered w-full max-w-xs" />
+                        {errors.text && <p className='text-red-600'>{errors.text?.message}</p>}
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="label-text">Image</span></label>
+                        <input type="file"
+                            {...register("img", {
+                                required: "img is required",
+                                
+                            })}
+                            className="input input-bordered w-full max-w-xs" />
+                       
+                        {errors.img && <p className='text-red-600'>{errors.img?.message}</p>}
+                    </div>
+                    {/* <div className="form-control w-full max-w-xs">
+                        <select {...register("category", { required: true })}>
+                            <option value="user">User</option>
+                            <option value="Seller">Seller</option>
+                        </select>
+                    </div> */}
+                    <input className='btn btn-accent w-full' value="Login" type="submit" />
+                    
+                </form>
+               
+            </div>
+        </div>
         </div>
     );
 };
