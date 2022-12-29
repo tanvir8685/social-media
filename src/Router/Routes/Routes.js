@@ -29,7 +29,8 @@ const router =createBrowserRouter([
             },
             {
                 path:'/about',
-                element:<About></About>
+                element:<About></About>,
+                // loader:({params})=>fetch(`http://localhost:5000/alluser/${params.id}`)
             },
             {
                 path:'/login',

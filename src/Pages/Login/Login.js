@@ -68,12 +68,7 @@ const Login = () => {
                         <label className="label"> <span className="label-text">Forget Password?</span></label>
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     </div>
-                    {/* <div className="form-control w-full max-w-xs">
-                        <select {...register("category", { required: true })}>
-                            <option value="user">User</option>
-                            <option value="Seller">Seller</option>
-                        </select>
-                    </div> */}
+
                     <input className='btn btn-accent w-full' value="Login" type="submit" />
                     <div>
                         {loginError && <p className='text-red-600'>{loginError}</p>}
