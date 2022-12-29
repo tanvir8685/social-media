@@ -6,7 +6,7 @@ import EditAbout from './EditAbout';
 const About = () => {
 
     const { user } = useContext(AuthContext);
-    console.log(user.email)
+    console.log(user?.email)
     const[userDetail,setUserDetail]=useState({});
     useEffect(() => {
         fetch(`http://localhost:5000/alluser?userEmail=${user?.email}`)
