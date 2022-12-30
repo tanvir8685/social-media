@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -7,17 +8,32 @@ const About = () => {
 
     const { user } = useContext(AuthContext);
     console.log(user?.email)
-    const[userDetail,setUserDetail]=useState({});
-    useEffect(() => {
-        fetch(`http://localhost:5000/alluser?userEmail=${user?.email}`)
-            .then(res => res.json())
-            .then(data => setUserDetail(data))
-    }, [user?.email])
+
+    const { data: userDetail = [],refetch,isLoading } = useQuery({
+        queryKey: ['userDetail'],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/alluser?userEmail=${user?.email}`);
+            const data = await res.json();
+            return data;
+        }
+    });
+
+
+
+
+
+
+    // const[userDetail,setUserDetail]=useState({});
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/alluser?userEmail=${user?.email}`)
+    //         .then(res => res.json())
+    //         .then(data => setUserDetail(data))
+    // }, [user?.email])
     const{_id,address,university,userName,userEmail}=userDetail;
     console.log(userDetail)
     return (
         <div>
-            <EditAbout key={_id} userDetail={userDetail}></EditAbout>
+            <EditAbout refetch={refetch} key={_id} userDetail={userDetail}></EditAbout>
 
             <form  className='grid grid-cols-1 gap-4 mt-6'>
             

@@ -5,6 +5,7 @@ import Login from "../../Pages/Login/Login";
 import Media from "../../Pages/Media/Media";
 import Message from "../../Pages/Message/Message";
 import SignUp from "../../Pages/SignUp/SignUp";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -16,7 +17,7 @@ const router =createBrowserRouter([
         children:[
             {
                 path:'/',
-                element:<Home></Home>
+                element:<PrivateRoute><Home></Home></PrivateRoute>
             },
                 
             {
@@ -29,8 +30,8 @@ const router =createBrowserRouter([
             },
             {
                 path:'/about',
-                element:<About></About>,
-                // loader:({params})=>fetch(`http://localhost:5000/alluser/${params.id}`)
+                element:<PrivateRoute><About></About></PrivateRoute>,
+                
             },
             {
                 path:'/login',
