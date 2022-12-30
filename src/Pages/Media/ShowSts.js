@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 
 import { FaHeart ,FaComment} from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 const ShowSts = ({sts}) => {
+  const {user}=useContext(AuthContext);
+  const [cmnt,setCmnt]=useState([]);
     const {status,image,userName,_id}=sts;
     console.log('id',sts)
     const { data: allComment = [],refetch,isLoading } = useQuery({
@@ -15,14 +18,18 @@ const ShowSts = ({sts}) => {
           
       }
   });
-  console.log('comment',allComment)
+
     const handleComment=(event)=>{
 
       event.preventDefault();
       const form = event.target;
       const comment = form.comment.value;
       
-      
+      // fetch(`http://localhost:5000/allcomment/${_id}`)
+      // .then(res=>res.json())
+      // .then(data=>{
+      //   setCmnt(data)
+      // })
       const commentForDb={
         commentId:_id,
         commentBody:comment
@@ -39,7 +46,7 @@ const ShowSts = ({sts}) => {
             .then(data => {
                 if (data.acknowledged) {
                     form.reset();
-                    // refetch()
+                    refetch()
                 }
                 console.log(data)
             })
@@ -70,10 +77,12 @@ const ShowSts = ({sts}) => {
                 <div className="form-control">
                     <label className="input-group input-group-md">
                        
-                        <input  type="text" name='comment' placeholder="Type here" className="input input-bordered input-md" />
+                        <input  type="text" name='comment' placeholder="to commnet login please" className="input input-bordered input-md" />
 
-                        
-                           <button className='btn btn-primary ml-3'>Submit</button> 
+                        {
+                          user?.uid?<button className='btn btn-primary ml-3'>Submit</button> : <button disabled className='btn btn-primary ml-3'>Submit</button>
+                        }
+                            
                         
 
 
@@ -92,10 +101,12 @@ const ShowSts = ({sts}) => {
 
   </div>
 </div>
-  </div>
-  {
+<p>All commnet</p>
+{
     allComment.map(cmnt=><p>{cmnt.commentBody}</p>)
   }
+  </div>
+ 
 </div>
         </div>
     );
