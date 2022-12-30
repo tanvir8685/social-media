@@ -4,7 +4,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 
 const StatusFullDetail = () => {
     const sts = useLoaderData();
-    const { _id, status, userName, image } = sts;
+    const {  status, userName, image } = sts;
     console.log('one info',sts)
     return (
         <div>

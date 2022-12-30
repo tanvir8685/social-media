@@ -4,8 +4,8 @@ import { toast } from 'react-hot-toast';
 
 const EditAbout = ({userDetail,refetch}) => {
     console.log('neeew',userDetail)
-    const{_id,address,university,userName,userEmail}=userDetail;
-    const {register,formState: { errors },handleSubmit}=useForm();
+    const{_id,userName,userEmail}=userDetail;
+    const {register,handleSubmit}=useForm();
     const handleLogin=data=>{
         console.log(data)
         console.log(_id)

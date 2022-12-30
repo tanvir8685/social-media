@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import { FaHeart ,FaComment} from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 const ShowSts = ({sts}) => {
   const {user}=useContext(AuthContext);
-  const [cmnt,setCmnt]=useState([]);
+
     const {status,image,userName,_id}=sts;
     console.log('id',sts)
-    const { data: allComment = [],refetch,isLoading } = useQuery({
+    const { data: allComment = [],refetch } = useQuery({
       queryKey: ['userDetail'],
       queryFn: async () => {
           const res = await fetch(`http://localhost:5000/allcomment/${_id}`);

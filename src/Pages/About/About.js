@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext,  } from 'react';
 
 import { AuthContext } from '../../contexts/AuthProvider';
 import EditAbout from './EditAbout';
@@ -9,7 +9,7 @@ const About = () => {
     const { user } = useContext(AuthContext);
     console.log(user?.email)
 
-    const { data: userDetail = [],refetch,isLoading } = useQuery({
+    const { data: userDetail = [],refetch, } = useQuery({
         queryKey: ['userDetail'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/alluser?userEmail=${user?.email}`);
