@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
-    <div>
+    <div className='bg-gradient-to-r from-gray-300 via-gray-500 to-grey-800'>
 
       <RouterProvider router={router}></RouterProvider>
       <Toaster></Toaster>

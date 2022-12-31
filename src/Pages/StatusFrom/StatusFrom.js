@@ -66,10 +66,10 @@ const StatusFrom = () => {
         <div>
             <div className=' flex justify-center items-center'>
             <div className='w-96 p-7'>
-                <h2 className='text-xl text-center'>Share your Status</h2>
+                <h2 className='text-5xl text-center font-black'>Share your Status</h2>
                 <form onSubmit={handleSubmit(handleSts)}>
                     <div className="form-control w-full max-w-xs">
-                        <label className="label"> <span className="label-text">Caption</span></label>
+                        <label className="label "> <span className="label-text text-white mt-6 text-center text-2xl">Write Caption Below</span></label>
                         <input type="text"
                             {...register("text", {
                                 required: "Text  is required"
@@ -78,7 +78,7 @@ const StatusFrom = () => {
                         {errors.text && <p className='text-red-600'>{errors.text?.message}</p>}
                     </div>
                     <div className="form-control w-full max-w-xs">
-                        <label className="label"> <span className="label-text">Image</span></label>
+                        <label className="label"> <span className="label-text text-white text-2xl">Put Image Here</span></label>
                         <input type="file"
                             {...register("img", {
                                 required: "img is required",
@@ -94,7 +94,7 @@ const StatusFrom = () => {
                             <option value="Seller">Seller</option>
                         </select>
                     </div> */}
-                    <input className='btn btn-accent w-full mt-5' value="Post" type="submit" />
+                    <input className='btn btn-accent bg-slate-400 w-full mt-5' value="Post" type="submit" />
                     
                 </form>
                

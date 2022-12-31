@@ -13,7 +13,7 @@ const Media = () => {
 
     })
     return (
-        <div className=''>
+        <div className='grid  place-items-center h-auto  bg-gradient-to-r from-gray-300 via-gray-500 to-grey-800 '>
             {
                 allstatus.map(sts=><ShowSts
                 key={sts._id}

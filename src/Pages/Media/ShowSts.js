@@ -58,7 +58,7 @@ const ShowSts = ({sts}) => {
 
     }
     return (
-        <div>
+        <div className='h-auto  '>
             <div className="card mt-5  w-96 bg-base-100 shadow-xl">
   <div className="card-body">
   <div className='flex justify-between items-stretch'>
