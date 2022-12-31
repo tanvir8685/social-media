@@ -50,11 +50,11 @@ const Login = () => {
         <div>
             <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>
-                <h2 className='text-xl text-center'>Login</h2>
+                <h2 className='text-5xl font-bold text-center mb-6'>Login</h2>
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="form-control w-full max-w-xs">
-                        <label className="label"> <span className="label-text">Email</span></label>
-                        <input type="email"
+                        <label className="label"> <span className="label-text"></span></label>
+                        <input type="email" placeholder='Put Your Email Here'
                             {...register("email", {
                                 required: "Email Address is required"
                             })}
@@ -62,25 +62,25 @@ const Login = () => {
                         {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
                     </div>
                     <div className="form-control w-full max-w-xs">
-                        <label className="label"> <span className="label-text">Password</span></label>
-                        <input type="password"
+                        <label className="label"> <span className="label-text"></span></label>
+                        <input type="password" placeholder='Type Password'
                             {...register("password", {
                                 required: "Password is required",
                                 minLength: { value: 6, message: 'Password must be 6 characters or longer' }
                             })}
                             className="input input-bordered w-full max-w-xs" />
-                        <label className="label"> <span className="label-text">Forget Password?</span></label>
+                        <label className="label"> <span className="label-text"></span></label>
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     </div>
 
-                    <input className='btn btn-accent w-full' value="Login" type="submit" />
+                    <input className='btn btn-outline w-full text-white' value="Login" type="submit" />
                     <div>
                         {loginError && <p className='text-red-600'>{loginError}</p>}
                     </div>
                 </form>
-                <p>New to OnlineHUB <Link className='text-secondary' to="/signup">Create new Account</Link></p>
+                <p className='text-lg font-semibold'>New to OnlineHUB <Link className='text-black' to="/signup">Create new Account</Link></p>
                 <div className="divider">OR</div>
-                <button  onClick={googleLogIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button  onClick={googleLogIn} className='btn btn-outline w-full text-white'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
         </div>
