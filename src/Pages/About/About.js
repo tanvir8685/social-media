@@ -12,7 +12,7 @@ const About = () => {
     const { data: userDetail = [],refetch, } = useQuery({
         queryKey: ['userDetail'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/alluser?userEmail=${user?.email}`);
+            const res = await fetch(`https://social-media-server-two.vercel.app/alluser?userEmail=${user?.email}`);
             const data = await res.json();
             return data;
         }
@@ -25,7 +25,7 @@ const About = () => {
 
     // const[userDetail,setUserDetail]=useState({});
     // useEffect(() => {
-    //     fetch(`http://localhost:5000/alluser?userEmail=${user?.email}`)
+    //     fetch(`https://social-media-server-two.vercel.app/alluser?userEmail=${user?.email}`)
     //         .then(res => res.json())
     //         .then(data => setUserDetail(data))
     // }, [user?.email])

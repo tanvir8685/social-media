@@ -30,7 +30,7 @@ const SignUp = () => {
                     userName:user?.displayName,
                     userEmail:user?.email
                 }
-                fetch('http://localhost:5000/alluser',{
+                fetch('https://social-media-server-two.vercel.app/alluser',{
                     method:'POST',
                     headers:{
                         'content-type':'application/json'

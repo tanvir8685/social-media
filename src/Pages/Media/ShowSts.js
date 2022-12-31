@@ -4,28 +4,31 @@ import React, { useContext } from 'react';
 import { FaHeart ,FaComment} from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import Loading from '../Shared/Loading/Loading';
 const ShowSts = ({sts}) => {
   const {user}=useContext(AuthContext);
 
     const {status,image,userName,_id}=sts;
     console.log('id',sts)
-    const { data: allComment = [],refetch } = useQuery({
+    const { data: allComment = [],refetch,isLoading } = useQuery({
       queryKey: ['userDetail'],
       queryFn: async () => {
-          const res = await fetch(`http://localhost:5000/allcomment/${_id}`);
+          const res = await fetch(`https://social-media-server-two.vercel.app/allcomment/${_id}`);
           const data = await res.json();
           return data;
           
       }
   });
-
+  if (isLoading){
+    return <Loading></Loading>
+}
     const handleComment=(event)=>{
 
       event.preventDefault();
       const form = event.target;
       const comment = form.comment.value;
       
-      // fetch(`http://localhost:5000/allcomment/${_id}`)
+      // fetch(`https://social-media-server-two.vercel.app/allcomment/${_id}`)
       // .then(res=>res.json())
       // .then(data=>{
       //   setCmnt(data)
@@ -35,7 +38,7 @@ const ShowSts = ({sts}) => {
         commentBody:comment
 
       }
-      fetch('http://localhost:5000/allcomment', {
+      fetch('https://social-media-server-two.vercel.app/allcomment', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -102,9 +105,9 @@ const ShowSts = ({sts}) => {
   </div>
 </div>
 <p>All commnet</p>
-{
-    allComment.map(cmnt=><p>{cmnt.commentBody}</p>)
-  }
+{/* {
+    allComment?.map(cmnt=><p>{cmnt.commentBody}</p>)
+  } */}
   </div>
  
 </div>

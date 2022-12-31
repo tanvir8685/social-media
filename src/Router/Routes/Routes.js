@@ -45,7 +45,7 @@ const router =createBrowserRouter([
             {
                 path:'/status/:id',
                 element:<PrivateRoute><StatusFullDetail></StatusFullDetail></PrivateRoute>,
-                loader:({params})=>fetch(`http://localhost:5000/allstatus/${params.id}`)
+                loader:({params})=>fetch(`https://social-media-server-two.vercel.app/allstatus/${params.id}`)
             },
             
         ]

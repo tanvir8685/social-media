@@ -10,7 +10,7 @@ const EditAbout = ({userDetail,refetch}) => {
         console.log(data)
         console.log(_id)
 
-        fetch(`http://localhost:5000/alluser/${_id}`,{
+        fetch(`https://social-media-server-two.vercel.app/alluser/${_id}`,{
             method: 'PATCH',
             headers: {
                 'content-type':'application/json'

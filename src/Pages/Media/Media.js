@@ -6,7 +6,7 @@ const Media = () => {
     const {data: allstatus=[]}= useQuery({
         queryKey:['allstatus'],
         queryFn:async()=>{
-            const res=await fetch('http://localhost:5000/allstatus');
+            const res=await fetch('https://social-media-server-two.vercel.app/allstatus');
             const data=await res.json();
             return data
         }

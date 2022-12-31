@@ -29,7 +29,7 @@ const StatusFrom = () => {
                     userEmail:user?.email
                 }
                 console.log(sts)
-                fetch('http://localhost:5000/allstatus',{
+                fetch('https://social-media-server-two.vercel.app/allstatus',{
                     method:'POST',
                     headers:{
                         'content-type':'application/json'
